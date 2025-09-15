@@ -1,4 +1,3 @@
-// server/src/index.js
 import 'dotenv/config';
 import express from 'express';
 import cors from 'cors';
@@ -8,30 +7,38 @@ import './jobs/scheduler.js';
 
 import path from 'path';
 import { fileURLToPath } from 'url';
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const staticDir = path.resolve(__dirname, '../public'); // we'll copy client build here
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const staticDir = path.resolve(__dirname, '../public');
 
 const app = express();
+
+// Middlewares
 app.use(cors());
 app.use(express.json());
 
-app.get('/api/health', (_, res) => res.json({ ok: true }));
+// API routes
+app.get('/api/health', (_req, res) => res.json({ ok: true }));
 app.use('/api/trackers', trackersRouter);
 
-// serve React build
+// Static + SPA fallback (Express v5-safe)
 app.use(express.static(staticDir));
-app.get('*', (req, res) => {
+app.get(/^(?!\/api).*/, (_req, res) => {
   res.sendFile(path.join(staticDir, 'index.html'));
 });
 
-const { MONGO_URI, PORT = 4000 } = process.env;
+// Boot
+const { MONGO_URI, PORT } = process.env;
+const port = Number(PORT) || 4000;
 
-mongoose.connect(MONGO_URI)
+mongoose
+  .connect(MONGO_URI)
   .then(() => {
     console.log('MongoDB connected');
-    app.listen(PORT, () => console.log(`API on http://localhost:${PORT}`));
+    app.listen(port, () => console.log(`API on http://localhost:${port}`));
   })
-  .catch(err => {
+  .catch((err) => {
     console.error('MongoDB error:', err.message);
     process.exit(1);
   });
