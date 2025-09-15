@@ -32,21 +32,21 @@ For price, you’ll see the fetched price; for content, click View to open the s
 
 Click Reset to clear all rows just for your browser
 
-🚀QUICK START (Local)
-# Prerequisites
+🚀 Quick Start (Local)
+Prerequisites
 
 Node.js ≥ 18 (v22+ works great)
 
 npm ≥ 9
 
-# MongoDB connection string
+MongoDB connection string
 
 Atlas (recommended): https://www.mongodb.com/atlas/database
  → create cluster → copy connection string
 
 Or local MongoDB (e.g. mongodb://127.0.0.1:27017/webmonitor)
 
-# Clone & install
+Clone & install
 git clone https://github.com/riteshkumar800/web-monitor.git
 cd web-monitor
 
@@ -54,7 +54,7 @@ cd web-monitor
 npm --prefix server ci
 npm --prefix client ci
 
-#Configure environment (server/.env)
+Configure environment (server/.env)
 
 Create a file server/.env with:
 
