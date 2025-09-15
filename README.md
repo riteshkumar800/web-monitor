@@ -100,27 +100,25 @@ Intervals: the cron job runs every minute and respects your selected interval
 
 Reset: clears only the current browser’s items; new visitors always see an empty table
 
-🗂️ Project Structure
 web-monitor/
-├─ client/                # React (Vite)
-│  ├─ src/
-│  │  ├─ api.js          # axios instance (adds x-tenant header)
-│  │  ├─ App.jsx         # UI: form, table, modal
-│  │  └─ ...
-│  └─ public/            # favicon/logo
-├─ server/                # Node + Express
-│  ├─ src/
-│  │  ├─ index.js        # express app, serve client build, connect Mongo
-│  │  ├─ routes/trackers.js
-│  │  ├─ jobs/scheduler.js
-│  │  ├─ models/Tracker.js
-│  │  └─ services/
-│  │     ├─ checker.js   # orchestrates fetch/parse/update
-│  │     ├─ scrape.js    # HTTP/Playwright fetch + price/content extractors
-│  │     └─ notify.js    # email/SMS hooks (optional)
-│  ├─ public/            # <-- built client copied here
-│  └─ .env
-└─ README.md
+├─ client/ # React (Vite)
+│ ├─ src/
+│ │ ├─ api.js # axios; sends x-tenant header
+│ │ ├─ App.jsx # UI (form, table, modal)
+│ │ └─ ...
+│ └─ public/ # favicon/logo
+├─ server/ # Node + Express
+│ ├─ src/
+│ │ ├─ index.js # serve client build + API, connect Mongo
+│ │ ├─ routes/trackers.js
+│ │ ├─ jobs/scheduler.js
+│ │ ├─ models/Tracker.js
+│ │ └─ services/
+│ │ ├─ checker.js # orchestrates fetch/parse/update
+│ │ ├─ scrape.js # HTTP/Playwright + price/content extractors
+│ │ └─ notify.js # (hooks ready, optional)
+│ ├─ public/ # built client copied here
+│ └─ .env
 
 🔧 Scripts
 
